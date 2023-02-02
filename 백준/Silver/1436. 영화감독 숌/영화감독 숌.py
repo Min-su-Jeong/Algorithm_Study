@@ -1,7 +1,4 @@
 # 브루트 포스(Brute Force) 접근
-import sys
-input = sys.stdin.readline
-
 n = int(input())
 num = 666
 cnt = 0
