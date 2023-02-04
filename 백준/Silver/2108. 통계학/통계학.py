@@ -1,8 +1,9 @@
 import sys
 from collections import Counter
+input = sys.stdin.readline
 
 n = int(input())
-num = sorted([int(sys.stdin.readline()) for _ in range(n)])
+num = sorted([int(input()) for _ in range(n)])
     
 print(round(sum(num) / n)) # 산술평균
 print(num[n // 2]) # 중앙값
