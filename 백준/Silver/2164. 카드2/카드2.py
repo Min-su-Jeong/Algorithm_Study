@@ -1,10 +1,6 @@
-a, b = int(input()), 2
+a, b = int(input()), 1
 
-while True:
-    if a == 1 or a == 2:
-        print(a)
-        break
-    b *= 2
-    if (a <= b):
-        print((a - (b // 2)) *2)
-        break
+while a > b:
+    b*= 2
+    
+print(a*2 - b)
