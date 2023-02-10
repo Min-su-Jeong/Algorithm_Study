@@ -1,5 +1,4 @@
-import sys
 from itertools import combinations as c
 
-n, k = map(int, sys.stdin.readline().split())
+n, k = map(int, input().split())
 print(len(list(c(range(n), k))))
