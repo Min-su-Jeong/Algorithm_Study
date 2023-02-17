@@ -4,6 +4,10 @@ n = int(input())
 cnt = abs(100 - n) # 채널 100번부터 시작
 m = int(input())
 
+if n == 100:
+    print(0)
+    sys.exit(0)
+
 if m: # 고장이 있을 경우에만 입력 받기
     btn = set(input().split())
 else:
