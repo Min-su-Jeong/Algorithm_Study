@@ -1,3 +1,6 @@
+import sys
+
+input = sys.stdin.readline
 n = int(input())
 f = [int(input()) for _ in range(n)]
 dp = [0]*n
