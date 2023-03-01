@@ -1,3 +1,4 @@
+import sys
 from collections import deque
 
 def bfs(x):
@@ -11,6 +12,7 @@ def bfs(x):
                 cnt +=1
     return cnt
 
+input = sys.stdin.readline
 n = int(input()) # 컴퓨터의 수
 m = int(input()) # 네트워크 쌍 개수
 graph = [[] for _ in range(n+1)]
