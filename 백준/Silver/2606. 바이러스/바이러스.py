@@ -1,16 +1,11 @@
 import sys
 from collections import deque
 
-def bfs(x):
-    q = deque([x])
-    cnt, v[x] = 0, True
-    while q:
-        for nn in graph[q.popleft()]:
-            if not v[nn]:
-                v[nn] = True
-                q.append(nn)
-                cnt +=1
-    return cnt
+def dfs(x):
+    v[x] = True
+    for nn in graph[x]:
+        if v[nn] == False:
+            dfs(nn)
 
 input = sys.stdin.readline
 n = int(input()) # 컴퓨터의 수
@@ -22,4 +17,5 @@ for _ in range(m):
     graph[b].append(a)
 
 v = [False for _ in range(n+1)]
-print(bfs(1))
+dfs(1)
+print(sum(v)-1)
