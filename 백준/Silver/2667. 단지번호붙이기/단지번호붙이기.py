@@ -1,4 +1,6 @@
+import sys
 from collections import deque
+input = sys.stdin.readline
 
 # bfs를 통한 해결
 def bfs(x, y, graph):
@@ -36,7 +38,7 @@ def bfs(x, y, graph):
                 
 # 입력 받기(input)
 n = int(input())
-graph = [list(map(int, input())) for _ in range(n)]
+graph = [list(map(int, input().rstrip())) for _ in range(n)]
             
 # bfs 수행(단지를 구별하며 각 단지별 집의 수를 리스트에 저장)
 res = [bfs(i, j, graph) for i in range(n) for j in range(n) if graph[i][j] == 1]
