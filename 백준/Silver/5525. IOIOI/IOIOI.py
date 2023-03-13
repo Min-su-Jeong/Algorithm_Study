@@ -1,6 +1,3 @@
-import sys
-input = sys.stdin.readline
-
 # 입력받기(input)
 n = int(input())
 m = int(input())
