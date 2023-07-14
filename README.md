@@ -10,5 +10,10 @@
 
 <br/>
 
-**※ 23.03.15(수) ~ : Baekjoon Hub와 Solved.ac 연동 오류 발생(Baekjoon Solution Commit 일시 중단)**  
-**※ 23.03.19(일) ~ : Programmers 문제 풀기 Start!**
+## Log
+| Date | Issue |
+|------|-------|
+| 2023.07.13 ~ | Baekjoon Solution Commit 재시작 & ICT 인턴십 하반기 코딩테스트 준비 |
+| 2023.03.19 ~ | 프로그래머스(Programmers) 문제 풀기 Start! |
+| 2023.03.15 | Baekjoon Hub와 Solved.ac 연동 오류 발생 -> Baekjoon Solution Commit 일시 중단 |
+
