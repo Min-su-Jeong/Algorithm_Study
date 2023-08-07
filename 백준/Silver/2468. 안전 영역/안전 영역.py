@@ -1,16 +1,5 @@
+import sys
 from collections import deque
-
-n = int(input())
-max_num = 0 # 최대 높이
-graph = []
-for i in range(n):
-    graph.append(list(map(int, input().split())))
-    for j in range(n):
-        if graph[i][j] > max_num:
-            max_num = graph[i][j]
-
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
 
 def bfs(x, y, val):
     safe[x][y] = 1
@@ -26,6 +15,21 @@ def bfs(x, y, val):
                 if not safe[nx][ny] and graph[nx][ny] > val:
                     safe[nx][ny] = 1
                     q.append((nx, ny))
+                    
+input = sys.stdin.readline
+n = int(input())
+max_num = 0 # 최대 높이
+graph = []
+for i in range(n):
+    graph.append(list(map(int, input().split())))
+    for j in range(n):
+        if graph[i][j] > max_num:
+            max_num = graph[i][j]
+
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
+
 
 result = 0
 for val in range(max_num):
