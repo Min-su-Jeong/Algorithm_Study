@@ -6,14 +6,14 @@
 - Baekjoon, Programmers
 
 ## 🧩 Main Language
-- Python
+- Python, Java
 
 <br/>
 
 ## Log
 | Date | Issue |
 |------|-------|
-| 2023.07.13 ~ | Baekjoon Solution Commit 재시작 & ICT 인턴십 하반기 코딩테스트 준비 |
-| 2023.03.19 ~ | 프로그래머스(Programmers) 문제 풀기 Start! |
+| 2024.04.03 ~ | CS & 코딩테스트 실력 기르기 |
+| 2023.07.13 ~ 2023.08.29 | Baekjoon Solution Commit 재시작 & ICT 인턴십 하반기 코딩테스트 준비 |
+| 2023.03.19 ~ 2023.07.10 | 프로그래머스(Programmers) 문제 풀기 Start! |
 | 2023.03.15 | Baekjoon Hub와 Solved.ac 연동 오류 발생 -> Baekjoon Solution Commit 일시 중단 |
-
