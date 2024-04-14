@@ -10,7 +10,6 @@
 중복 불가능인 경우 : O(N!) = 10! = 3,628,800
 => 1초 내 가능
 """
-
 def backTracking():
     if len(arr) == M:
         print(*arr)
@@ -22,8 +21,23 @@ def backTracking():
             backTracking()
             arr.pop()
         
+def backTracking2(curNum: int):
+    if curNum == M:
+        print(*arr)
+        return
+    
+    for i in range(1, N+1):
+        if not visited[i]:
+            visited[i] = True
+            arr.append(i)
+            backTracking2(curNum+1)
+            arr.pop()
+            visited[i] = False
+        
 
 N, M = map(int, input().split())
 arr = []
+visited = [False] * (N + 1)
 
-backTracking()
+#backTracking()
+backTracking2(0)
