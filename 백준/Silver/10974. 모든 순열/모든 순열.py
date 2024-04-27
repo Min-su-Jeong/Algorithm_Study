@@ -8,7 +8,7 @@
 - O(N^2): 8 ^ 2 = 64 (Worst case)
   => 1초 이내 가능
 """
-def dfs(depth: int):
+def dfs():
     if len(res) == N:
         print(*res)
         return
@@ -17,7 +17,7 @@ def dfs(depth: int):
         if not visited[i]:
             visited[i] = True
             res.append(i)
-            dfs(depth+1)
+            dfs()
             visited[i] = False
             res.pop()
             
@@ -26,4 +26,4 @@ N = int(input())
 visited = [False] * (N+1)
 res = []
 
-dfs(0)
+dfs()
