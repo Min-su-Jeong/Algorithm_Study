@@ -1,7 +1,16 @@
+"""
+1.전략
+- 집합
+- 조건에 맞도록 연산 진행
+
+2.시간복잡도
+- O(N) = N = 3,000,000 (Worst case)
+"""
 import sys
 input = sys.stdin.readline
 
 s = set() # set 함수를 사용한 집합 표현
+
 for _ in range(int(input())):
     op = input().strip().split() # 연산 입력 받기
     
