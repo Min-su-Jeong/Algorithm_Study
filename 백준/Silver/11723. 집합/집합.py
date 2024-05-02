@@ -1,36 +1,40 @@
+
 """
 1.전략
-- 집합
-- 조건에 맞도록 연산 진행
+- 비트마스크
+- shift 연산을 사용하여 문제 해결
+- 메모리를 효과적으로 해결하기 위한 방법
 
-2.시간복잡도
-- O(N) = N = 3,000,000 (Worst case)
+2. 시간 복잡도
+- M(N) = 3,000,000 (Worst Case)
 """
-import sys
-input = sys.stdin.readline
+import sys; input = sys.stdin.readline
 
-s = set() # set 함수를 사용한 집합 표현
+M = int(input())
+S = 0b0
+for _ in range(M):
+    commands = input().rstrip()
 
-for _ in range(int(input())):
-    op = input().strip().split() # 연산 입력 받기
-    
-    if len(op) == 1:
-        if op[0] == "all":
-            s = set([i for i in range(1, 21)])
-        else: # empty 연산
-            s = set() 
-    
-    else: # all, empty 연산을 제외한 나머지 연산들
-        func, x = op[0], op[1]
+    try:
+        cmd, x = commands.split()
         x = int(x)
-        if func == "add":
-            s.add(x)
-        elif func == "remove":
-            s.discard(x) # 해당 원소가 집합에 없어도 에러나지 않음(remove 대체)
-        elif func == "check":
-            print(1 if x in s else 0) # s에 x가 있으면 1, 없으면 0 출력
-        elif func == "toggle":
-            if x in s:
-                s.discard(x)
+        if cmd == "add":
+            S  = S | (0b1 << x)
+
+        elif cmd == "remove":
+            S = S & ~(0b1 << x)
+
+        elif cmd == "check":
+            if (S & (0b1 << x)):
+                print(1)
             else:
-                s.add(x)
+                print(0)
+                
+        elif cmd == "toggle":
+            S = S ^ (0b1 << x)
+
+    except:
+        if commands == "all":
+            S = 0b111111111111111111111
+        elif commands == "empty":
+            S = 0b0
