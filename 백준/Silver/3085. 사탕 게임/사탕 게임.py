@@ -1,52 +1,65 @@
 """
-1.전략
-브루트포스: 아래와 오른쪽만 계속해서 swap 진행
-전체 보드에서 사랑의 최대 개수를 구한 뒤 원상복구
-다음 step으로 넘어가 위의 방법을 동일하게 반복
+1. 전략
+- 브루트포스(Brute Force)
+- N의 최대 크기(50)가 크지 않음. 여러 개의 for문 사용 가능하다고 판단됨.
+- 2차원 리스트(board)를 만들어서 현재 위치 기준 오른쪽, 아래 Swap
+- Swap한 이후, 행과 열 기준으로 사탕의 최대 개수 구하기
+- 개수를 구한 후, 배열 원상 복구
 
-2. 시간복잡도
-O(N^4) = 50**4 = 6,250,000 => 가능
+2. 시간 복잡도
+- 시간 제한: 1초
+- O(N^4) = 50^4 = 6,250,000 (가능)
 """
+
 import sys
 input = sys.stdin.readline
 
-result = 0
+# Input
 N = int(input())
-candy = [list(input()) for _ in range(N)]
+board = [list(map(str, input().rstrip())) for _ in range(N)]
 
-def checkMaxCandy():
-    maxCandy = 1 
+# Solution
+res = 0
+
+def findMax(board: list):
+    global res
+
     for i in range(N):
-        cntRow, cntCol = 1, 1
+        # 행 탐색
+        cntRow = 1
         for j in range(N-1):
-            # 행 검사
-            if candy[i][j] == candy[i][j+1]:
+            if board[i][j] == board[i][j+1]:
                 cntRow += 1
-                maxCandy = max(maxCandy, cntRow)
+                res = max(res, cntRow)
             else:
                 cntRow = 1
-                
-            # 열 검사
-            if candy[j][i] == candy[j+1][i]:
-                cntCol += 1   
-                maxCandy = max(maxCandy, cntCol)
+
+        # 열 탐색
+        cntCol = 1
+        for j in range(N-1):
+            if board[j][i] == board[j+1][i]:
+                cntCol += 1
+                res = max(res, cntCol)
             else:
                 cntCol = 1
 
-    return maxCandy
-
 for i in range(N):
     for j in range(N-1):
-        # 오른쪽 Swap
-        if candy[i][j] != candy[i][j+1]:                            
-            candy[i][j], candy[i][j+1] = candy[i][j+1], candy[i][j] # Swap
-            result = max(result, checkMaxCandy())                   # 사탕의 최대 개수 구하기
-            candy[i][j], candy[i][j+1] = candy[i][j+1], candy[i][j] # 되돌리기
-        
-        # 아래쪽 Swap
-        if candy[j][i] != candy[j+1][i]:
-            candy[j][i], candy[j+1][i] = candy[j+1][i], candy[j][i]  # Swap
-            result = max(result, checkMaxCandy())                      # 사탕의 최대 개수 구하기
-            candy[j][i], candy[j+1][i] = candy[j+1][i], candy[j][i]  # 다시 되돌리기
+        if board[i][j] != board[i][j+1]:
+            # 오른쪽 Swap
+            board[i][j], board[i][j+1] = board[i][j+1], board[i][j]
+            # 최대 개수 구하기
+            findMax(board)
+            # 원복
+            board[i][j], board[i][j+1] = board[i][j+1], board[i][j]
 
-print(result)
+        if board[j][i] != board[j+1][i]:
+            # 아래쪽 Swap
+            board[j][i], board[j+1][i] = board[j+1][i], board[j][i]
+            # 최대 개수 구하기
+            findMax(board)
+            # 원복
+            board[j][i], board[j+1][i] = board[j+1][i], board[j][i]
+
+# Output
+print(res)
