@@ -1,32 +1,31 @@
 """
-1.전략
-완전탐색
-N의 범위 내 채널을 증가 or 감소시킴
-버튼으로 누를 수 없는 채널인 경우 pass
-누를 수 있는 채널인 경우, 대수 비교(최솟값 찾기)
-"result = min(100~N번까지 눌러야 하는 횟수, 가장 가까운 채널로 이동해서 + or - 누르는 횟수)"
+1. 전략
+- 브루트포스(Brute Force)
+- 채널이 아래에서부터 올라가는 경우, 위에서 내려가는 경우를 고려
+- 현재 채널의 숫자를 str로 변환해서 고장난 버튼에 들어있는지 확인
+- 현재 채널에 고장난 버튼이 속하지 않으면 버튼을 누르는 횟수 계산
+- "최적해 = min(마지막 최솟 값, 숫자 버튼 클릭 수 + '+/-' 버튼 클릭 수)"
 
-2.시간복잡도
-O(N * M) = 500,001 * 6 = 3,000,006
-=> 2초 내 가능
+2. 시간 복잡도
+- 시간 제한: 2초
+- O(N*M) = 1,000,000 * 7 = 7,000,000
 """
 
-N = int(input()) # 수빈이가 이동하려고 하는 채널
-M = int(input()) # 고장난 버튼의 개수
-if M:            # 고장난 버튼이 있는 경우만 입력 받기
-    broken = set(input().split())
-else:
-    broken = set()
+import sys;
+input = sys.stdin.readline
 
-MAX = 1000000       # 채널 - or + 을 고려한 범위(0~999,999)
-result = abs(100-N) # 결과 변수
+N = int(input())
+M = int(input())
+broken = list(input().split()) if M != 0 else []
 
-for channel in range(MAX+1): # 범위 내 완전 탐색
-    for c in str(channel):   # Channel의 숫자를 하나씩 분할하여 검증
-        if c in broken:      # 누를 수 없는 채널인 경우 break
+MAX = 1000001
+res = abs(100 - N)
+
+for i in range(MAX):
+    for j in str(i):
+        if j in broken:
             break
     else:
-        # 최소 버튼 클릭 횟수 구하기
-        result = min(result, len(str(channel)) + abs(channel-N))
-        
-print(result)
+        res = min(res, len(str(i)) + abs(i - N))
+
+print(res)
