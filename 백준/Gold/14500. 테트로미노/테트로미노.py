@@ -1,60 +1,51 @@
 """
 1.전략
 - DFS 
-- 5개의 테트로미노 중 T자 테트로미노를 dfs로 어떻게 구현할지에 대해 고민
-- 기본 2개의 블럭을 연결한 상태로 5개의 테트로미노를 만들 수 있도록 함
-- DFS 순회를 통해 res에 최댓값 갱신
+- 5개의 테트로미노 중 T자형 테트로미노를 어떻게 구현할지에 대해 고민
+- dfs 구현 + 가지치기(로직 구현)
+- 나머지 블럭이 모두 최댓값이어도 현재 결과값보다 작으면 return
 
 2.시간복잡도
-O(N*M*4) = 497 * 497 * 4 = 988,036
-=> 2초 내 가능
+- 시간 제한: 2초
+- O(N*M) = 500 * 500 * 4 = 1,000,000
 """
 import sys
 input = sys.stdin.readline
 
-N,M = map(int,input().split())
-graph = [list(map(int,input().split())) for _ in range(N)]
-visited = [[False]*M for _ in range(N)]
+N, M = map(int,input().split())
+graph = [list(map(int, input().split())) for _ in range (N)]
+visited = [[0] * M for _ in range (N)]
 
-dx = [-1,0,1,0]
-dy = [0,-1,0,1]
+max_pos = max(map(max, graph))
 
-def dfs(x:int, y:int, depth:int, total:int):
-    global res
+dx = [-1,1,0,0]
+dy = [0,0,-1,1]
+
+def dfs(depth:int, total:int, arr:list):
+    global ans
     
-    # 예외처리
-    if res >= total + max_pos*(4-depth):
+    # 가지치기
+    if ans >= total + (4-depth) * max_pos:
         return
     
-    # 테트로미노가 완성된 경우
+    # 종료 조건
     if depth == 4:
-        res = max(res,total)
+        ans = max(total, ans)
         return
-    # 테트로미노가 미완성인 경우
-    else:
+    
+    # 순회 시작
+    for cx, cy in arr:
         for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-            if 0<=nx<N and 0<=ny<M and not visited[nx][ny]:
-                # 테트로미노 블럭이 2개가 연결된 경우
-                # 기본 2개가 붙어있고 그 상태에서 모양을 만들어가는 방식
-                if depth == 2:
-                    visited[nx][ny] = True
-                    # 두번째 블록에서 한번 더 돌아야 하기 때문에 x,y 좌표 필요
-                    dfs(x, y, depth+1, total+graph[nx][ny]) 
-                    visited[nx][ny] = False
-                    
-                visited[nx][ny] = True
-                dfs(nx, ny, depth+1, total+graph[nx][ny])
-                visited[nx][ny] = False
-
-                
-res = 0
-max_pos = max(map(max,graph)) 
+            nx, ny = cx + dx[i], cy + dy[i]
+            if 0<=nx<N and 0<=ny<M and visited[nx][ny] == 0:
+                visited[nx][ny] = 1
+                dfs(depth+1, total+graph[nx][ny], arr+[(nx, ny)])
+                visited[nx][ny] = 0
+    
+ans = 0
 for i in range(N):
     for j in range(M):
         visited[i][j] = 1
-        dfs(i, j, 1, graph[i][j])
-        visited[i][j] = 0
+        dfs(1, graph[i][j], [(i, j)])
         
-print(res)
+print(ans)
