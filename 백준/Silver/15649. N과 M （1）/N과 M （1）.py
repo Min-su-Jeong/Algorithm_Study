@@ -1,43 +1,44 @@
 """
 1.전략
-- 백트래킹
-- 리스트 arr의 중복 여부 확인
-- 중복이 아닌 경우, 숫자 i 넣기
-- 재귀함수에서 M개를 선택할 경우 출력
+- Back Tracking
+- arr를 만들어 시작할 숫자(i)를 넣은 후 만들 수 있는 조합을 모두 출력
+- i가 N일 때까지 반복
 
-2.시간복잡도
-중복 가능인 경우 : O(N^2) = 8 * 8 = 64
-중복 불가능인 경우 : O(N!) = 10! = 3,628,800
-=> 1초 내 가능
+2.시간 복잡도
+- 시간 제한: 1초
+- O(N^2) = 8 * 8 = 64
 """
-def backTracking():
+import sys
+input = sys.stdin.readline
+
+# Input
+N, M = map(int, input().split())
+
+# Variable
+graph = [i for i in range(1, N+1)]
+visited = [False for _ in range(N+2)]
+arr = []
+
+# Function
+def dfs():
+    # 종료 조건
     if len(arr) == M:
         print(*arr)
         return
-    
-    for i in range(1, N+1):
-        if i not in arr:
-            arr.append(i)
-            backTracking()
-            arr.pop()
-        
-def backTracking2(curNum: int):
-    if curNum == M:
-        print(*arr)
-        return
-    
-    for i in range(1, N+1):
-        if not visited[i]:
-            visited[i] = True
-            arr.append(i)
-            backTracking2(curNum+1)
-            arr.pop()
-            visited[i] = False
-        
 
-N, M = map(int, input().split())
-arr = []
-visited = [False] * (N + 1)
+    # 방문 조건
+    for j in range(1, N+1):
+        if not visited[j]:
+            arr.append(j)
+            visited[j] = True
+            dfs()
+            visited[j] = False
+            arr.pop()
 
-#backTracking()
-backTracking2(0)
+# Main
+for i in range(1, N+1):
+    arr.append(i)
+    visited[i] = True
+    dfs()
+    arr.clear()
+    visited[i] = False
