@@ -1,26 +1,31 @@
 """
 1.전략
-- 다이나믹 프로그래밍(dp)
-- 1~7까지 직접 계산해보며 규칙 먼저 찾기
-  "n4 = n1 + n2 + n3", "n5 = n2 + n3 + n4"
-  => [n] = [n-3] + [n-2] + [n-1]
+- DP(Dynamic Programming)
+- 숫자의 조합을 통해 합을 구하는 방식 -> 규칙이 존재할 것 같음
+- 1~6까지 경우의 수를 나타내며 규칙 찾아보기
+  n=1: 1 / n=2: 2 / n=3: 4 / n=4: 7 / n=5: 13 / n=6: 24
+- 규칙을 찾아보며 이전의 값들이 다음 n 값에 영향을 받는다는 것을 알게됨
+- 점화식: dp[n] = dp[n-3] + dp[n-2] + dp[n-1]
 
-2.시간복잡도
-N(N * M^2) = 테스트 케이스 수(T) * func() 호출 수 = T * (n-2)^2+1
-=> 1초 내 가능
+2.시간 복잡도
+- 시간 제한: 1초
+- O(N) = 10 * T(Test Case)
 """
-def func(x):
-    if x == 1:
-        return 1
-    elif x == 2:
-        return 2
-    elif x == 3:
-        return 4
-    else:
-        return func(x-1) + func(x-2) + func(x-3) 
+import sys
+input = sys.stdin.readline
 
-T = int(input())     # 테스트 케이스의 개수
+T = int(input())
+
+MAX = 11
+
+dp = [0 for _ in range(11)]
+dp[1] = 1
+dp[2] = 2
+dp[3] = 4
+
+for i in range(4, MAX):
+    dp[i] = dp[i-3] + dp[i-2] + dp[i-1]
+
 for _ in range(T):
-    n = int(input()) # 정수 n
-    dp = [0] * n     # n개의 배열 만들기
-    print(func(n))
+    n = int(input())
+    print(dp[n])
