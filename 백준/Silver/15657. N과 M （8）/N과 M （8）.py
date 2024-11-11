@@ -1,27 +1,37 @@
 """
 1.전략
-- 백트래킹
-- n번째 수보다 n+1번째 수가 더 커야하며 뒤에 있어야 함.
-- 중복 가능한 수열
+- 백트래킹(Back Tracking)
+- list를 한 개 만들어 관리. DFS + 가지치기 추가
+- 중복 O: 방문 여부를 확인 필요 X
+- 비내림차순: 시작 숫자와 같거나 커야함
 
-2.시간복잡도
-O(N^2) = 8 * 8 = 64
-=> 1초 내 가능
+2.시간 복잡도
+- 시간 제한: 1초
+- O(N^M)
 """
-def backTracking(curNum: int):
-    if len(arr) == M:
-        print(*arr)
-        return
-    
-    for i, num in enumerate(nums):
-        if curNum <= num:
-            arr.append(num)
-            backTracking(num)
-            arr.pop()
-    
-arr = []
-N, M = map(int, input().split())
-nums = list(map(int, input().split()))
-nums.sort()
+import sys
+input = sys.stdin.readline
 
-backTracking(0)
+# Input 
+N, M = map(int, input().split())
+arr = list(map(int, input().split()))
+arr.sort()
+
+# Variable
+res = []
+
+# Solution
+def dfs(curNum: int): 
+    # 가지치기
+    if len(res) == M:
+        print(*res)
+        return
+
+    # 조건
+    for i in range(curNum, N):
+        res.append(arr[i])
+        dfs(i)
+        res.pop()
+
+# Main
+dfs(0)
