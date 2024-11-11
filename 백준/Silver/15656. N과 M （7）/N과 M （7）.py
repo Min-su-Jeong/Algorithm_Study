@@ -1,26 +1,36 @@
 """
 1.전략
-- 백트래킹
-- 중복 허용가능한 수열
-- 방문 여부(visited) 확인 필요 X
+- 백트래킹(Back Tracking)
+- list를 한 개 만들어 관리. DFS + 가지치기 추가
+- 중복 O: 방문 여부를 확인 필요 X
 
-2.시간복잡도
-O(N^2) = 8 * 8 = 64
-=> 1초 내 가능
+2.시간 복잡도
+- 시간 제한: 1초
+- O(N^M)
 """
-def backTracking():
-    if len(arr) == M:
-        print(*arr)
-        return
-    
-    for i, num in enumerate(nums):
-        arr.append(num)
-        backTracking()
-        arr.pop()
-    
-arr = []
-N, M = map(int, input().split())
-nums = list(map(int, input().split()))
-nums.sort()
+import sys
+input = sys.stdin.readline
 
-backTracking()
+# Input 
+N, M = map(int, input().split())
+arr = list(map(int, input().split()))
+arr.sort()
+
+# Variable
+res = []
+
+# Solution
+def dfs(curNum: int): 
+    # 가지치기
+    if curNum == M:
+        print(*res)
+        return
+
+    # 조건
+    for num in arr:
+        res.append(num)
+        dfs(curNum+1)
+        res.pop()
+
+# Main
+dfs(0)
