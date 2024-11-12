@@ -1,38 +1,49 @@
 """
 1.전략
-- 백트래킹(Backtracking)
-- res의 길이가 l과 같아지면 출력 및 반환
-- 자음 최소 1개, 모음 최소 2개를 포함해야 하므로 개수 count
-- 단어 완성 시, 자음 및 모음 counting => 자음: 최소 1개 이상, 모음: 최소 2개 이상인 경우 출력
+- 백트래킹(Back Tracking)
+- 최소 조건: 모음 1 + 자음 2, 오름차순 정렬
+- 오름차순 + 중복 X => DFS 구현
+- 최소 조건을 가지치기로 설정
 
 2.시간복잡도
-- O(c^l) = C개 중 L개를 선택하는 조합의 수에 비례
-  => 2초 이내 가능
+- 시간 제한: 2초
+- O(2^C) = 2 ^ 15 = 32,768
 """
-import sys; input = sys.stdin.readline
+import sys
+input = sys.stdin.readline
 
-def backTracking(idx):
-    if len(res) == L:
-        vo, co = 0, 0
-        
-        for i in range(L):
-            if res[i] in constant:
-                vo += 1
-            else:
-                co += 1
-                
-        if vo >= 1 and co >= 2:
-            print(''.join(res))
-        return
-    
-    for i in range(idx, C):
-        res.append(alpha[i])
-        backTracking(i + 1)
-        res.pop()
-
+# Input
 L, C = map(int, input().split())
-alpha = sorted(list(input().split()))
-constant = ['a', 'i', 'o', 'u', 'e']
-res = []
+ch = list(input().rstrip().split())
+ch.sort()
 
+# Variables
+arr = []
+
+# Solution
+def backTracking(curNum: int):
+    global arr
+
+    # 가지치기
+    if len(arr) == L:
+        # 각각 모음/자음 개수
+        cnt1, cnt2 = 0, 0 
+        for c in arr:
+            if c in "aeiou":
+                cnt1 += 1
+            else:
+                cnt2 += 1
+        
+        # 조건에 만족해야 출력
+        if cnt1 >= 1 and cnt2 >= 2:
+            print(''.join(arr))
+            return
+
+    # 순회 조건
+    for i in range(curNum, C):
+        arr.append(ch[i])
+        backTracking(i+1)
+        arr.pop()
+
+# Main
 backTracking(0)
