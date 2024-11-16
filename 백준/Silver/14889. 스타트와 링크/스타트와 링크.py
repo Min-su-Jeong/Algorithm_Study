@@ -1,54 +1,52 @@
 """
 1.전략
-- 백트래킹(Backtracking)
-- 방문 리스트(visited)를 생성하여 True -> 스타트팀 / False -> 링크팀 구분
-- depth가 N의 절반에 도달했을 때 스타트팀과 링크팀의 차이 계산
-- 재귀 호출
+- 백트래킹(Back Tracking)
+- 스타트와 링크 팀을 나눌 때 스타트 팀 소속 제외한 나머지가 링크 팀
+- BFS를 통해 오름차순 정렬(중복 방지) + N/2 만큼의 크기가 되었을 때 계산 시작
+- S[i][j], S[j][i]와 대응되기 때문에 N*N/2 만큼 반복해서 계산 => N*N 만큼 반복 필요 X
+- 결과 값(res)과 스타트 링크 팀의 점수 차이를 비교해서 최소를 갖는 해를 업데이트
 
-2.시간복잡도
-- O(2^N) = 2^20 = 2,048 
-  => 2초 이내 가능
+2.시간 복잡도
+- 제한 시간: 2초
+- O(2^N) = 2 ^ 20 = 1,048,576
 """
-import sys; 
+import sys
 input = sys.stdin.readline
 
-def backTracking(curNum, depth):
+# Input
+N = int(input())
+S = [list(map(int, input().split())) for _ in range(N)]
+
+# Variables
+res = sys.maxsize
+visited = [False for _ in range(N)]
+
+# Solution
+def backTracking(curNum: int, depth: int):
     global res
-    
-    # N의 절반인 경우 팀 능력치 차이 계산
+
     if depth == N//2:
         start, link = 0, 0
-        
-        # NxN을 돌면서 방문여부에 따라 팀 구분
+
         for i in range(N):
-            for j in range(N):
-                # 스타트팀 능력치 계산
+            for j in range(i, N):
                 if visited[i] and visited[j]:
-                    start += graph[i][j]
-                    
-                # 링크팀 능력치 계산
+                    start += (S[i][j] + S[j][i])
+
                 elif not visited[i] and not visited[j]:
-                    link += graph[i][j]
-                    
-        # 능력치 차가 최소가 되는 값 찾기            
+                    link += (S[i][j] + S[j][i])
+
         res = min(res, abs(start-link))
         return
-    
-    # 재귀 호출
+
     for i in range(curNum, N):
         if not visited[i]:
             visited[i] = True
-            backTracking(i, depth+1)
+            backTracking(i+1, depth+1)
             visited[i] = False
-            
-# 값 입력 및 초기화         
-N = int(input())
-graph = [list(map(int, input().split())) for _ in range(N)]
-visited = [False] * N
-res = sys.maxsize
 
-# 함수 실행
+# Main          
 backTracking(0, 0)
 
-# 결과 출력
+# Output  
 print(res)
