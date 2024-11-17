@@ -1,29 +1,35 @@
 """
-1,전략
-- DFS
-- visited 리스트: 방문 여부 확인
-- res 리스트: 순회하면서 N 길이만큼 채워질 때마다 return
+1.전략
+- DFS(Depth-First Search)
+- N만큼 반복하면서 중복 X인 순열 계산
+- N의 길이에 도달할 때마다 출력
 
-2.시간복잡도
-- O(N^2): 8 ^ 2 = 64 (Worst case)
-  => 1초 이내 가능
+2.시간 복잡도
+- 시간 제한: 1초
+- O(N^N) = 8 * 8 = 64
 """
-def dfs():
-    if len(res) == N:
-        print(*res)
-        return
-    
-    for i in range(1, N+1):
+import sys
+input = sys.stdin.readline
+
+# Input
+N = int(input())
+
+# Variables
+arr = []
+visited = [False for _ in range(N)]
+
+# Solution
+def dfs(curNum: int):
+    if curNum == N:
+        print(*arr)
+
+    for i in range(N):
         if not visited[i]:
             visited[i] = True
-            res.append(i)
-            dfs()
+            arr.append(i+1)
+            dfs(curNum+1)
             visited[i] = False
-            res.pop()
-            
-        
-N = int(input())
-visited = [False] * (N+1)
-res = []
+            arr.pop()
 
-dfs()
+# Main
+dfs(0)
