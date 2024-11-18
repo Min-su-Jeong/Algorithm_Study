@@ -1,41 +1,52 @@
 """
 1.전략
-- 브루트포스
-- N의 범위가 작으므로 모든 순열을 구해서 차이가 최대인 조합을 찾음.
+- 백트래킹(Back Tracking)
+- 1) 주어진 식을 계산하는 함수 구현
+- 2) 주어진 배열에 대해 나올 수 있는순서를 계산하기 위해 dfs 사용
+- res 값과 비교하여 최댓값 계산
 
-2.시간복잡도
-- O(N!) = 8! = 40,320(Worst case)
-  => 1초 이내 가능
+2.시간 복잡도
+- 시간 제한: 1초
+- O(N*N!) = 8 * 8! = 322,560
 """
-def dfs(curList: list):
+import sys
+input = sys.stdin.readline
+
+# Input
+N = int(input())
+A = list(map(int, input().split()))
+
+# Variables
+res = -sys.maxsize
+visited = [False for _ in range(N+1)]
+arr = []
+
+# Function 1. 식 계산
+def calcSum(arr: list):
+    s = 0
+    for i in range(1, len(arr)):
+        s += abs(arr[i-1] - arr[i])
+    
+    return s
+
+# Function 2. 순회하며 최댓값 구하기
+def backTracking(curNum: int):
     global res
-    
-    if len(curList) == N:
-        # 수식 대입
-        maxDiff = sum(abs(curList[i-1] - curList[i]) for i in range(1, N))
-        
-        # 최댓값 갱신
-        res = max(res, maxDiff)
+
+    if curNum == N:
+        res = max(res, calcSum(arr))
         return
-    
-    # 모든 순열 순회
+
     for i in range(N):
-        # 방문 여부에 따른 순회
         if not visited[i]:
             visited[i] = True
-            curList.append(arr[i])
-            dfs(curList)
+            arr.append(A[i])
+            backTracking(curNum+1)
             visited[i] = False
-            curList.pop()
-            
-# 파라미터        
-N = int(input())
-arr = list(map(int, input().split()))
-visited = [False] * N
-res = 0
+            arr.pop()
 
-# 함수 실행
-dfs([])
+# Main
+backTracking(0)
 
-# 결과 출력
+# Output
 print(res)
