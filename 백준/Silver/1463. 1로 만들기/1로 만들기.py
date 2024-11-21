@@ -1,35 +1,30 @@
 """
-1.전략
-- 다이나믹 프로그래밍(Dynamic programming)
-- 상향식(Bottom-up) 접근
-- 2와 3으로 나눠지는 경우와 그렇지 않은 경우를 나누어 접근
+- 다이나믹 프로그래밍(Dynamic Programming)
+- N이 2 또는 3으로 나누어 떨어지는 경우와 둘 다 나누어 떨어지지 않아 -1을 하는 경우로 나눌 수 있음
+- -1을 먼저 했을 떄의 결과값과 나누어 떨어지는 경우에 나누었을 떄의 결과 값을 비교해서 최솟값 찾기
 
-2.시간복잡도
-- O(N) = 10 ^ 6 = 1,000,000 (Worst case)
-  => 0.15초 이내 가능
+2.시간 복잡도
+- 시간 제한: 0.7초
+- O(N) = 10^6 = 1,000,000
 """
-def DP(N: int):
-    global dp
-    
-    for i in range(2, N+1):
-        # i에서 1을 빼는 경우
-        dp[i] = dp[i-1] + 1
-        
-        # i가 3으로 나누어 떨어지는 경우
-        if i % 3 == 0:
-            dp[i] = min(dp[i], dp[i//3] + 1)
-            
-        # i가 2로 나누어 떨어지는 경우
-        if i % 2 == 0:
-            dp[i] = min(dp[i], dp[i//2] + 1)
-             
-    return dp[N]
+import sys
+input = sys.stdin.readline
 
-# 입력 받기
+# Input
 N = int(input())
 
-# 필요한 변수 선언
-dp = [0] * (N+1)
+# Variables
+res = 0
+dp = [0 for _ in range(N+1)]
 
-# 함수 실행 및 결과 출력
-print(DP(N))
+# Solution
+for i in range(2, N+1):
+    dp[i] = dp[i-1] + 1
+
+    if i % 2 == 0:
+        dp[i] = min(dp[i], dp[i//2]+1)
+    if i % 3 == 0:
+        dp[i] = min(dp[i], dp[i//3]+1)
+    
+# Output
+print(dp[N])
