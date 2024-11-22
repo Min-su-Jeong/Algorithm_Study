@@ -1,9 +1,29 @@
+"""
+1.전략
+- 다이나믹 프로그래밍(Dynamic programming)
+- 다음과 같은 규칙을 찾게됨
+  dp[i] = dp[i-2] + dp[i-1] (n>2)
+- 점화식을 대입하여 dp문제 접근
+
+2.시간복잡도
+- O(N) = 1,000
+  => 1초 이내 가능
+"""
+def DP(n: int):
+    global dp
+    
+    for i in range(3, n+1):
+        dp[i] = (dp[i-2] + dp[i-1]) % 10007
+
+    return dp[n]
+
+# 입력 받기
 n = int(input())
 
-# n의 방법의 수: n-2 + n-1
-# n-2 -> 누워있는 두개의 타일이 붙고, n-1 -> 세워져 있는 한개의 타일이 붙음
-s = [0, 1, 2]
-for i in range(3, 1001):
-    s.append(s[i - 2] + s[i - 1])
-    
-print(s[n] % 10007)
+# 필요한 변수 선언 및 초기화
+dp = [0] * 1001
+dp[1] = 1
+dp[2] = 2
+
+# 함수 실행 및 결과 출력
+print(DP(n))
