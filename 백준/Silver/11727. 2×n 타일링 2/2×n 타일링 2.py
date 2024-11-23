@@ -1,30 +1,31 @@
 """
 1.전략
-- 다이나믹 프로그래밍(Dynamic programming)
-- 1~5까지 몇가지 경우의 수를 구해봄
-- 다음과 같은 규칙을 찾게됨
-  dp[i] = dp[i-2] * 2 + dp[i-1] (n>2)
-- 점화식을 대입하여 dp문제 접근
+- 다이나믹 프로그래밍(Dynamic Programming)
+- 몇 가지 케이스를 직접 그려보며 다음 그려지는 규칙을 파악
+  => 1x2, 2x1 타일은 홀수, 짝수에 모두 그려질 수 있으나 2x2의 타일의 경우 짝수일 때마다 1개씩 더 그릴 수 있음
+- 점화식
+  - 짝수인 경우: dp[i] = dp[i-1] * 2 + 1
+  - 홀수인 경우: dp[i] = dp[i-1] * 2 - 1
 
-2.시간복잡도
-- O(N) = 1,000
-  => 1초 이내 가능
+2.시간 복잡도
+- 시간 제한: 1초
+- 시간 복잡도: O(N) = 1,000
 """
-def DP(n: int):
-    global dp
-    
-    for i in range(3, n+1):
-        dp[i] = (dp[i-2] * 2 + dp[i-1]) % 10007
+import sys
+input = sys.stdin.readline
 
-    return dp[n]
-
-# 입력 받기
+# Input
 n = int(input())
 
-# 필요한 변수 선언 및 초기화
-dp = [0] * 1001
+# Variables
+dp = [0 for _ in range(n+1)]
 dp[1] = 1
-dp[2] = 3
 
-# 함수 실행 및 결과 출력
-print(DP(n))
+# Solution
+for i in range(2, n+1):
+    if i % 2 == 0:
+        dp[i] = dp[i-1] * 2 + 1
+    else:
+        dp[i] = dp[i-1] * 2 - 1
+
+print(dp[n] % 10007)
