@@ -1,43 +1,40 @@
 """
 1.전략
-- DP(Dynamic Programming)
-- LIS(Longest Increasing Subsequence) 유형 문제
-- 접근 : A[i]를 마지막 값으로 가지는가장 긴 증가 부분수열의 길이 찾기
-- 점화식 : dp[i] = max(dp[i], dp[j]+1)
+- 다이나믹 프로그래밍(Dynamic Programming)
+- 현재 자릿수(i) 기준으로 증가하는 부분 수열의 최댓값을 누적
+- 점화식: A[i] > A[1~i-1]인 경우 => dp[i] = max(dp[i], dp[j]+1)
 - 해당하는 부분 수열을 찾기 위해 dp 값이 늘어나는 수만 리스트에 저장
 
-2.시간복잡도
-- O(N^2) = 1,000 * 1,000 = 1,000,000(Worst case)
-  => 1초 이내 가능
+2.시간 복잡도
+- 시간 제한: 1초
+- O(N^2) = 1,000 * 1,000 = 1,000,000
 """
-import sys; input = sys.stdin.readline
+import sys
+input = sys.stdin.readline
 
-def DP(N: int, A: list):
+# Input
+N = int(input())
+A = [0] + list(map(int, input().split()))
+
+# Variables
+dp = [0 for _ in range(N+1)]
+
+# Solution
+def DP(n: int):
     global dp
-    
-    arr = [[x] for x in A]
-    curNum = 0
-    for i in range(N):
-        for j in range(i):
-            if A[j] < A[i] and dp[i] < dp[j]:
+
+    arr = [[i] for i in A]
+    for i in range(1, n+1):
+        for j in range(1, i):
+            if A[i] > A[j] and dp[i] < dp[j]:
                 dp[i] = dp[j]
                 arr[i] = arr[j] + [A[i]]
-        
+
         dp[i] += 1
-        
+
     return arr
 
-# 입력 받기
-N = int(input())
-A = list(map(int, input().split()))
-
-# 필요한 변수 선언 및 초기화
-dp = [0] * (N+1)
-
-# 함수 실행
-arr = DP(N, A)
-
-# 결과 출력
-res = max(dp)
-print(res)
-print(*arr[dp.index(res)])
+# Output
+res = DP(N)
+print(max(dp))
+print(*res[dp.index(max(dp))])
