@@ -1,28 +1,33 @@
 """
 1.전략
-- DP(Dynamic Programming)
-- 규칙을 찾기 위한 1~6까지 경우의 수 계산
-- 점화식 : dp[i] = dp[i-1] + dp[i-2] 발견
-- 식을 대입하여 dp[n] 값 반환
+- 다이나믹 프로그래밍(Dynamic Programming)
+- 두 가지 조건을 생각
+  => 0으로 시작할 수 없음
+  => N자리 이친수 중, 0으로 끝나는 경우 = +2 / 1로 끝나는 경우 = +1씩 증가함
+- 점화식: dp[i] = dp[i-1] + dp[i-2]
 
-2.시간복잡도
+2.시간 복잡도
+- 시간 제한: 2초
 - O(N) = 90
-  => 2초 이내 가능
 """
-def DP(N: int):
-    global dp
-    
-    for i in range(2, N+1):
-        dp[i] = dp[i-1] + dp[i-2]
+import sys
+input = sys.stdin.readline
 
-    return dp[N]
-
-# 입력 받기
+# Input
 N = int(input())
 
-# 필요한 변수 선언 및 초기화
-dp = [0] * (N+1)
+# Variables
+dp = [0 for _ in range(N+1)]
 dp[1] = 1
 
-# 함수 실행 및 결과 출력
+# Solution
+def DP(n: int):
+    global dp
+
+    for i in range(2, n+1):
+        dp[i] = dp[i-1] + dp[i-2]
+
+    return dp[n]
+
+# Main
 print(DP(N))
