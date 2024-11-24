@@ -1,36 +1,36 @@
 """
 1.전략
-- DP(Dynamic Programming)
-- 최소의 항의 개수 = N보다 작은 가장 큰 제곱수를 구하고 뒤의 항들을 찾기
-- 새로운 제곱 수가 등장할 때 1로 초기화되는 규칙 발견
-- 점화식 : dp[i] = dp[i - j*j] + 1
+- 다이나믹 프로그래밍, 수학
+- 점화식
+  => 제곱수가 현재의 값보다 큰 경우: pass
+  => 제곱수가 현재의 값보다 작은 경우: dp[i] = min(dp[i], dp[i-j*j]+ 1)
 
-2.시간복잡도
+2.시간 복잡도
+- 시간 제한: 2초
 - O(N * root(N)) = 100,000 * root(100,000) = 31,622,777
-  => 2초 이내 가능
 """
-def DP(N: int):
-    global dp
+import sys
+input = sys.stdin.readline
 
-    # 경우의 수 구하기
-    for i in range(1, N+1):
-        for j in range(1, i):
-
-            # i가 제곱 수보다 작은 경우: break
-            if i < j*j:
-                break
-            
-            # 점화식
-            dp[i] = min(dp[i], dp[i-j*j] + 1)
- 
-    return dp[N]
-
-# 입력 받기
+# Input
 N = int(input())
+
+# Variables
 dp = [i for i in range(N+1)]
 
-# 함수 실행
-res = DP(N)
+# Solution
+def DP(n: int):
+    global dp
 
-# 결과 출력
-print(res)
+    for i in range(1, n+1):
+        for j in range(1, i):
+            if i < j*j:
+                break
+
+            dp[i] = min(dp[i], dp[i-j*j] + 1)
+
+# Main
+DP(N)
+
+# Output
+print(dp[N])
