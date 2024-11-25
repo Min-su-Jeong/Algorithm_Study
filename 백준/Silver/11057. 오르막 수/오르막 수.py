@@ -1,25 +1,36 @@
 """
 1.전략
-- DP(Dynamic Programming)
-- 자리수가 1개인 경우: 0 ~ 9까지 한 번씩만 사용,
-- 자리수가 2개인 경우: 숫자의 위에 있는 수와 왼쪽에 있는 수를 더한 값
+- 다이나믹 프로그래밍(Dynamic Programming)
+- i가 증가하면서 0~9까지 각 자릿수별로 1~N까지의 누적합의 경우의 수를 가짐
+  ex) 3인 경우: sum(1~10) + sum(1~9) + ... + sum(1)
+- 점화식: dp[j] += dp[j-1]
 
-2.시간복잡도
-- O(N^2) = 1,000 ^ 2 = 1,000,000
-  => 1초 이내 가능
+2.시간 복잡도
+- 시간 제한: 1초
+- O(N^2) = 1,000 * 1,000 = 1,000,000
 """
-import sys; input = sys.stdin.readline
+import sys
+input = sys.stdin.readline
 
-# 입력 받기
-n = int(input())
+# Input
+N = int(input())
 
-# 변수 초기화
-dp = [1] * 10
+# Variables
+MOD = 10007
+dp = [1 for _ in range(10)]
 
-# 솔루션
-for i in range(n-1):
-    for j in range(1, 10):
-        dp[j] += dp[j-1]
+# Solution
+def DP(n: int):
+    global dp
 
-# 결과 출력
-print(sum(dp) % 10007)
+    for _ in range(n-1):
+        for j in range(1, 10):
+            dp[j] += dp[j-1]
+
+    return (sum(dp) % MOD)
+
+# Main
+res = DP(N)
+
+# Output
+print(res)
