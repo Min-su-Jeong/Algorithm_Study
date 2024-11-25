@@ -1,37 +1,41 @@
 """
 1.전략
-- DP(Dynamic Programming)
-- 연속 사용 가능
-- n을 나타내는 방법중에 마지막 숫자가 각각 1,2,3으로 끝나는 경우의 수를 생각
-- 1~5까지 귀납적으로 접근. 다음과 같은 규칙을 발견함
-- 점화식 : dp[n] = dp[n-3] + dp[n-2] + dp[n-1]
+- 다이나믹 프로그래밍(Dynamic Programming)
+- 이전의 값들이 다음 값에 어떻게 반영되는지 규칙 찾기
+- 점화식: dp[i] = dp[i-1] + dp[i-2] + dp[i-3]
 
-2.시간복잡도
+2.시간 복잡도
+- 시간 제한: 1초
 - O(N) = 1,000,000
-  => 1초 이내 가능
 """
-def DP():
-    global dp, MAX, MOD
+import sys
+input = sys.stdin.readline
 
-    for i in range(4, MAX):
-        dp[i] = (dp[i-1] + dp[i-2] + dp[i-3]) % MOD
-
-# 입력 받기(테스트 케이스 수)
+# Input
 T = int(input())
 
-# 필요한 변수 선언 및 초기화
-MOD = 1000000009
+# Variables
 MAX = 1000001
-dp = [0] * MAX
-dp[1], dp[2], dp[3] = 1, 2, 4
+MOD = 1000000009
+dp = [0 for _ in range(MAX)]
+dp[1] = 1
+dp[2] = 2
+dp[3] = 4
 
-# 함수 실행
+# Solution
+def DP():
+    global dp
+
+    for i in range(4, MAX):
+        dp[i] = (dp[i-1] + dp[i-2] + dp[i-3]) % MOD 
+
+# Main
 DP()
 
-for i in range(T):
-    # 입력 받기 (n)
-    n = int(input())
-    
-    # 결과 계산 및 출력
-    res = dp[n] % MOD
+for _ in range(T):
+    # Input
+    N = int(input())
+
+    # Output
+    res = dp[N] % MOD
     print(res)
