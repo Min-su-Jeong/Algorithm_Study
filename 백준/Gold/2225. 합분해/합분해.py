@@ -1,32 +1,34 @@
 """
 1.전략
-- DP(Dynamic Programming)
-- 숫자 N을 k개로 나타내는 방법 고민
-- 귀납적으로 접근(K=1~3)
-- 점화식 : dp[K][N] = dp[K-1][N] + dp[K][N-1]
+- 다이나믹 프로그래밍(Dynamic Programming)
+- 2차원 배열을 통해 N, K의 자릿수별로 가질 수 있는 경우의 수 나열
+- 점화식: dp[n][k] = dp[n-1][k] + dp[n][k-1]
 
-2.시간복잡도
-- O(N*K) = 200 * 200 = 40,000(Worst case)
-  => 2초 이내 가능
+2.시간 복잡도
+- 시간 제한: 2초
+- O(N*K) = 200 * 200 = 40,000
 """
-def DP(N: int, K: int):
+import sys
+input = sys.stdin.readline
+
+# Input
+N, K = map(int, input().split())
+
+# Variables
+MOD = 1000000000
+dp = [[0 for _ in range(K+1)] for _ in range(N+1)]
+dp[0][0] = 1
+
+# Solution
+def DP():
     global dp
 
     for i in range(N+1):
         for j in range(1, K+1):
-            dp[i][j] = dp[i-1][j] + dp[i][j-1]
+            dp[i][j] = (dp[i][j-1] + dp[i-1][j]) % MOD
 
-    return dp[N][K] % 1000000000
+# Main
+DP()
 
-# 입력 받기
-N, K = map(int, input().split())
-
-# 필요한 변수 선언 및 초기화
-dp = [[0] * (K+1) for _ in range(N+1)]
-dp[0][0] = 1
-
-# 함수 실행
-res = DP(N, K)
-
-# 결과 출력
-print(res)
+# Output
+print(dp[N][K])
