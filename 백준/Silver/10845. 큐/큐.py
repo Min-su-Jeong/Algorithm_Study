@@ -1,3 +1,12 @@
+"""
+1.전략
+- 큐(Queue)
+- 큐에 대한 기본 명령어 구현
+
+2.시간 복잡도
+- 시간 제한: 0.5초
+- O(N) = 10,000
+"""
 import sys
 input = sys.stdin.readline
 queue = []
