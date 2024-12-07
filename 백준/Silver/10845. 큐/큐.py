@@ -1,7 +1,7 @@
 """
 1.전략
 - 큐(Queue)
-- 큐에 대한 기본 명령어 구현
+- 큐의 기본구조 파악하기
 
 2.시간 복잡도
 - 시간 제한: 0.5초
@@ -9,37 +9,43 @@
 """
 import sys
 input = sys.stdin.readline
+
+# Input
+N = int(input())
+
+# Variables
 queue = []
 
-for _ in range(int(input())):
-    com = input().split()
-    if com[0] == 'push':
-        queue.append(com[1])
-        
-    elif com[0] == 'pop':
-        if len(queue) == 0:
-            print(-1)
-        else:
-            print(queue[0])
-            del queue[0]
-            
-    elif com[0] == 'size':
-        print(len(queue))
-        
-    elif com[0] == 'empty':
-        if len(queue) == 0:
-            print(1)
-        else:
-            print(0)
-            
-    elif com[0] == 'front':
-        if len(queue) == 0:
-            print(-1)
-        else:
-            print(queue[0])
+# Solution
+for _ in range(N):
+    cmd = input().split()
     
-    elif com[0] == 'back':
-        if len(queue) == 0:
-            print(-1)
+    if cmd[0] == "push":
+        queue.append(cmd[1])
+
+    elif cmd[0] == "pop":
+        if len(queue):
+            print(queue.pop(0))
         else:
+            print(-1)
+
+    elif cmd[0] == "size":
+        print(len(queue))
+
+    elif cmd[0] == "empty":
+        if len(queue):
+            print(0)
+        else:
+            print(1)
+
+    elif cmd[0] == "front":
+        if len(queue):
+            print(queue[0])
+        else:
+            print(-1)
+
+    elif cmd[0] == "back":
+        if len(queue):
             print(queue[-1])
+        else:
+            print(-1)
