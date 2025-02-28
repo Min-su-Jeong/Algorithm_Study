@@ -1,15 +1,26 @@
-m, n = map(int, input().split())
+import sys
+input = sys.stdin.readline
 
-# 소수 판별 함수
-def primality(n):
-    if n == 1:
-        return False
-    for i in range(2, int(n**0.5)+1):
-        if n % i == 0:
-            return False
-    return True
+# Input
+M, N = map(int, input().split())
 
-# 입력 받은 범위 내에서 소수 판별
-for num in range(m, n+1):
-    if primality(num):
-        print(num)
+# Variables
+MAX = 1000000
+prime = [True for _ in range(MAX+1)]
+prime[0] = prime[1] = False
+
+# Solution
+def calc_prime():
+    for i in range(2, int(MAX**0.5)+1):
+        if prime[i]:
+            for j in range(i*i, MAX, i):
+                prime[j] = False
+
+def solution():
+    calc_prime()
+    for i in range(M, N+1):
+        if prime[i]:
+            print(i)
+
+# Main
+solution()
