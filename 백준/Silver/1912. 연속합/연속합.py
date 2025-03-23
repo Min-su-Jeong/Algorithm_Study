@@ -1,33 +1,25 @@
-"""
-1.전략
-- DP(Dynamic Programming)
-- 각 원소(i)마다 앞의 부분합을 구할 필요 X
-- 점화식 : dp[i] = max(arr[i], dp[i-1] + arr[i])
+import sys
+input = sys.stdin.readline
 
-2.시간복잡도
-- O(N) = 100,000(Worst case)
-  => 1초 이내 가능
-"""
-import sys; input = sys.stdin.readline
+# Input
+n = int(input())
+arr = [0] + list(map(int, input().split()))
 
-def DP(N: int, arr: list):
+# Variables
+dp = [-1000 for _ in range(n+1)]
+dp[1] = arr[1]
+
+# Solution
+def solution(n: int):
     global dp
-    
-    for i in range(1, N):
-        dp[i] = max(arr[i], dp[i-1] + arr[i])
+
+    for i in range(1, n+1):
+        dp[i] = max(arr[i], dp[i-1]+arr[i])
 
     return max(dp)
 
-# 입력받기
-N = int(input())
-arr = list(map(int, input().split()))
+# Main
+res = solution(n)
 
-# 필요한 변수 선언 및 초기화
-dp = [min(arr)] * N
-dp[0] = arr[0]
-
-# 함수 실행
-res = DP(N, arr)
-
-# 결과 출력
+# Output
 print(res)
