@@ -6,7 +6,7 @@ n = int(input())
 dp = [list(map(int, input().split())) for _ in range(n)]
 
 # Solution
-def DP(n: int) -> int:
+def solution(n: int):
     global dp
 
     for i in range(1, n):
@@ -16,12 +16,12 @@ def DP(n: int) -> int:
             elif j == i:
                 dp[i][j] += dp[i-1][j-1]
             else:
-                dp[i][j] += max(dp[i-1][j], dp[i-1][j-1])
+                dp[i][j] += max(dp[i-1][j-1], dp[i-1][j])
 
-    return max(dp[n-1])
+    return max(dp[-1])
 
 # Main
-res = DP(n)
+res = solution(n)
 
 # Output
 print(res)
