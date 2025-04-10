@@ -2,23 +2,22 @@ import sys
 input = sys.stdin.readline
 
 # Input
-arr = [input().rstrip() for _ in range(3)]
+s = [input().rstrip() for _ in range(3)]
 
 # Solution
-def sequence():
+def sequence(s):
     for i in range(3):
-        if arr[i].isdigit():
-            return int(arr[i]) + (3-i)
+        if s[i].isdigit():
+            return int(s[i]) + (3-i)
+        
+# Main
+res = sequence(s)
 
-# Main        
-res = sequence()
-
-# Output
-if res % 15 == 0:
+if res % 3 == 0 and res % 5 == 0:
     print('FizzBuzz')
 elif res % 3 == 0:
-    print('Fizz')
+    print("Fizz")
 elif res % 5 == 0:
-    print('Buzz')
+    print("Buzz")
 else:
     print(res)
