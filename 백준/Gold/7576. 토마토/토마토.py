@@ -1,42 +1,46 @@
 import sys
 from collections import deque
+input = sys.stdin.readline
 
-def bfs():   
+# Input
+M, N = map(int, input().split())
+tomatoes = [list(map(int, input().split())) for _ in range(N)]
+
+# Variables
+q = deque()
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
+# Solution
+def check(tomatoes):
+    cnt = 0
+    for i in range(N):
+        for j in range(M):
+            if tomatoes[i][j] == 0:
+                return -1
+            else:
+                cnt = max(cnt, tomatoes[i][j])
+    
+    return cnt - 1
+
+def bfs(tomatoes):
     while q:
         x, y = q.popleft()
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
-            
-            # 좌표 값 벗어나는 경우 제외 & 인접한 위치가 익지 않아야 함
-            if 0 <= nx < n and 0 <= ny < m and graph[nx][ny] == 0:
-                graph[nx][ny] = graph[x][y] + 1 # 주변 토마토 익히기 & 횟수 세기
+
+            if 0 <= nx < N and 0 <= ny < M and not tomatoes[nx][ny]:
                 q.append((nx, ny))
+                tomatoes[nx][ny] = tomatoes[x][y] + 1
 
-input = sys.stdin.readline
-m, n = map(int, input().split())
-graph = [list(map(int, input().split())) for _ in range(n)]
-day = 0
+    return check(tomatoes)
 
-# 상, 하, 좌, 우
-dx = [0, 0, -1, 1]
-dy = [1, -1, 0, 0] 
-
-# 익은 토마토의 위치 좌표 추가
-q = deque()
-for i in range(n):
-    for j in range(m):
-        if graph[i][j] == 1:
+# Main
+for i in range(N):
+    for j in range(M):
+        if tomatoes[i][j] == 1:
             q.append((i, j))
 
-# bfs 수행
-bfs()
-
-# 답 찾아내기
-for i in graph:
-    for j in i:
-        if j == 0:
-            print(-1)
-            exit(0)
-    day = max(day, max(i))
-print(day -1)
+# Output
+print(bfs(tomatoes))
