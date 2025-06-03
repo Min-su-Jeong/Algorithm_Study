@@ -4,12 +4,12 @@ using namespace std;
 int main() {
     ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
-    while(true) {
+    while (true) {
         string s;
         getline(cin, s);
         if (s == ".") break;
 
-        stack<int> stk;
+        stack<char> stk;
         bool check = true;
         for (int i=0; i<s.length(); i++) {
             if (s[i] == ')') {
@@ -33,8 +33,7 @@ int main() {
             if (s[i] == '(') stk.push(s[i]);
             if (s[i] == '[') stk.push(s[i]);
         }
-
-        if (check && stk.size() == 0) cout << "yes\n";
+        if (stk.empty() && check) cout << "yes\n";
         else cout << "no\n";
     }
     return 0;
