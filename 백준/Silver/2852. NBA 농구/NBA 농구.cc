@@ -5,10 +5,10 @@ using namespace std;
 int N, T, A, B, asum, bsum;
 string s, prev;
 
-string print(int a) {
-    string m = "00" + to_string(a / 60);
-    string s = "00" + to_string(a % 60);
-    return m.substr(m.size()-2, 2) + ":" + s.substr(s.size()-2, 2);
+void print(int sum) {
+    string m = "00" + to_string(sum / 60);
+    string s = "00" + to_string(sum % 60);
+    cout << m.substr(m.size()-2, 2) << ":" << s.substr(s.size()-2, 2) << '\n';
 }
 
 int changeToInt(string s) {
@@ -25,17 +25,17 @@ int main() {
     cin >> N;
     for (int i=0; i<N; i++) {
         cin >> T >> s;
-    
+
         if (A > B) go(asum, s);
         else if (A < B) go(bsum, s);
-        
+
         T == 1 ? A++ : B++;
-        prev = s; 
+        prev = s;
     }
     if (A > B) go(asum, "48:00");
     else if (A < B) go(bsum, "48:00");
 
-    cout << print(asum) << '\n';
-    cout << print(bsum) << '\n';
+    print(asum);
+    print(bsum);
     return 0;
 }
