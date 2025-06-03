@@ -2,9 +2,8 @@
 using namespace std;
 
 string s;
-int vcnt, ccnt; // 모음, 자음 개수
 
-bool isVowel(int idx) {
+bool includeV(int idx) {
     return (idx == 'a' || idx == 'e' || idx == 'i' || idx == 'o' || idx == 'u');
 }
 
@@ -15,15 +14,13 @@ int main() {
         cin >> s;
         if (s == "end") break;
         
-        vcnt = ccnt = 0;       // 모음, 자음 개수 초기화
-        bool flag = 0;         // 가능 여부 검사
-        bool is_include_v = 0; // 모음 포함 여부 검사
-        int prev = -1;         // 이전 값 검사
+        int vcnt = 0, ccnt = 0, prev = -1;
+        bool flag = 0, include_v = 0;
 
         for (int i=0; i<s.size(); i++) {
             // 조건 1
             int idx = s[i];
-            if (isVowel(idx)) vcnt++, ccnt = 0, is_include_v = 1;
+            if (includeV(idx)) vcnt++, ccnt = 0, include_v = 1;
             else vcnt = 0, ccnt++;
 
             // 조건 2
@@ -33,10 +30,10 @@ int main() {
             if (i >= 1 && (prev == idx) && (idx != 'e' && idx != 'o')) flag = 1;
             prev = idx;
         }
-
-        if (!is_include_v) flag = 1;
-        if (flag) cout << "<" << s << ">" << " is not acceptable.\n";
-        else cout << "<" << s << ">" << " is acceptable.\n";
+        
+        if (!include_v) flag = 1;
+        if (flag) cout << '<' << s << "> is not acceptable.\n";
+        else cout << '<' << s << "> is acceptable.\n";
     }
     return 0;
 }
