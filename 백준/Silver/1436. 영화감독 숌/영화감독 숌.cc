@@ -8,11 +8,10 @@ int main() {
 
     cin >> N;
     int ret = 666;
-    for(;; ret++) {
+    for (;;ret++) {
         if (to_string(ret).find("666") != string::npos) N--;
         if (N == 0) break;
     }
     cout << ret << '\n';
-    
     return 0;
 }
