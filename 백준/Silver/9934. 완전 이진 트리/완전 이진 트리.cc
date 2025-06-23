@@ -1,4 +1,4 @@
-# include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 int K, a[1028];
@@ -14,7 +14,6 @@ void go(int s, int e, int level) {
     ret[level].push_back(a[mid]);
     go(s, mid-1, level+1);
     go(mid+1, e, level+1);
-    return;
 }
 
 int main() {
@@ -22,7 +21,7 @@ int main() {
     cin.tie(NULL); cout.tie(NULL);
 
     cin >> K;
-    int _end = (int)pow(2, K) - 1;
+    int _end = pow(2, K) - 1;
     for (int i=0; i<_end; i++) {
         cin >> a[i];
     }
