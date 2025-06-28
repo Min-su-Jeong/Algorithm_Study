@@ -1,11 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
-typedef long long ll;
 
-const int INF = 987654321;
-int N, mp, mf, ms, mv, sum, ret = INF;
-int b, c, d, e;
-
+const int INF = INT_MAX;
+int N, mp, mf, ms, mv, p, f, s, v, sum, ret=INF;
 struct A {
     int mp, mf, ms, mv, cost;
 } a[16];
@@ -14,29 +11,30 @@ map<int, vector<vector<int>>> ret_v;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL); cout.tie(NULL);
-
+    
     cin >> N;
     cin >> mp >> mf >> ms >> mv;
     for (int i=0; i<N; i++) {
         cin >> a[i].mp >> a[i].mf >> a[i].ms >> a[i].mv >> a[i].cost;
     }
-    for (int i=1; i < (1 << N); i++) {
-        b = c = d = e = sum = 0;
-        vector<int> v;
+
+    for (int i=0; i<(1 << N); i++) {
+        p = f = s = v = sum = 0;
+        vector<int> vec;
         for (int j=0; j<N; j++) {
             if (i & (1 << j)) {
-                v.push_back(j+1);
-                b += a[j].mp;
-                c += a[j].mf;
-                d += a[j].ms;
-                e += a[j].mv;
+                vec.push_back(j+1);
+                p += a[j].mp;
+                f += a[j].mf;
+                s += a[j].ms;
+                v += a[j].mv;
                 sum += a[j].cost;
             }
         }
-        if (b >= mp && c >= mf && d >= ms && e >= mv) {
+        if (p >= mp && f >= mf && s >= ms && v >= mv) {
             if (ret >= sum) {
                 ret = sum;
-                ret_v[ret].push_back(v);
+                ret_v[ret].push_back(vec);
             }
         }
     }
@@ -44,8 +42,8 @@ int main() {
     else {
         sort(ret_v[ret].begin(), ret_v[ret].end());
         cout << ret << '\n';
-        for (int a: ret_v[ret][0]) {
-            cout << a << ' ';
+        for (int i: ret_v[ret][0]) {
+            cout << i << ' ';
         }
     }
     return 0;
