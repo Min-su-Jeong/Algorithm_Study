@@ -2,6 +2,7 @@
 using namespace std;
 
 string s, bomb, ret;
+stack<char> stk;
 
 int main() {
     ios_base::sync_with_stdio(false);
@@ -9,13 +10,27 @@ int main() {
 
     cin >> s >> bomb;
     for (char c: s) {
-        ret += c;
-        if (ret.size() >= bomb.size() && ret.substr(ret.size() - bomb.size(), bomb.size()) == bomb) {
-            ret.erase(ret.end() - bomb.size(), ret.end());
+        stk.push(c);
+        if (stk.size() >= bomb.size() && stk.top() == bomb.back()) {
+            string ss = "";
+            for (char b: bomb) {
+                ss += stk.top();
+                stk.pop();
+            }
+            reverse(ss.begin(), ss.end());
+            if (ss != bomb) {
+                for (char b: ss) stk.push(b);
+            }
         }
     }
-    if (ret.size()) cout << ret << '\n';
-    else cout << "FRULA\n";
-
+    if (!stk.size()) cout << "FRULA\n";
+    else {
+        while (stk.size()) {
+            ret += stk.top(); 
+            stk.pop();
+        }
+        reverse(ret.begin(), ret.end());
+        cout << ret << '\n';
+    } 
     return 0;
 }
