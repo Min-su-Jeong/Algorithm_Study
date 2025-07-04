@@ -16,12 +16,8 @@ int main() {
     sort(v.begin(), v.end());
     
     for (int i=0; i<N; i++) {
-        int process = v[i].first + v[i].second;
-        if (ret > v[i].first) {
-            ret += v[i].second;
-        } else {
-            ret = process;
-        } 
+        if (ret > v[i].first) ret += v[i].second;
+        else ret = v[i].first + v[i].second;
     }
     cout << ret << '\n';
 
