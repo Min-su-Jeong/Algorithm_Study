@@ -1,15 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-string s, tmp;
-
 int main() {
+    string s, r;
     cin >> s;
-    tmp = s;
-    reverse(tmp.begin(), tmp.end());
+    r = s;
+    reverse(r.begin(), r.end());
 
-    if (s == tmp) cout << 1 << '\n';
-    else cout << 0 << '\n';
-    
+    cout << (r == s) ? 1 : 0 << '\n';
+
     return 0;
 }
