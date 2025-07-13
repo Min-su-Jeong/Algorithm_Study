@@ -18,9 +18,9 @@ int main() {
         sort(v.begin(), v.end());
 
         while (l < r) {
-            if (v[l] + v[r] < M) l++;
+            if (v[l] + v[r] > M) r--;
             else if (v[l] + v[r] == M) ret++, r--;
-            else r--;
+            else l++;
         }
         cout << ret << '\n';
     }
