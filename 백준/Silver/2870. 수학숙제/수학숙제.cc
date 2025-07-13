@@ -2,17 +2,17 @@
 using namespace std;
 
 int N;
-string s, ret;
+string s, ss;
 vector<string> v;
 
 void go() {
     while (true) {
-        if (ret.size() && ret.front() == '0') ret.erase(ret.begin());
+        if (ss.size() && ss.front() == '0') ss.erase(ss.begin());
         else break;
     }
-    if (ret.size() == 0) ret = "0";
-    v.push_back(ret);
-    ret = "";
+    if (ss.size() == 0) ss = "0";
+    v.push_back(ss);
+    ss = "";
 }
 
 bool cmp(string a, string b) {
@@ -21,21 +21,22 @@ bool cmp(string a, string b) {
 }
 
 int main() {
-    ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
 
     cin >> N;
     while (N--) {
         cin >> s;
-        ret = "";
+        ss = "";
         for (int i=0; i<s.size(); i++) {
             int idx = s[i];
-            if (idx < 65) ret += s[i];
-            else if (ret.size()) go();
+            if (idx < 65) ss += s[i];
+            else if (ss.size()) go();
         }
-        if (ret.size()) go();
+        if (ss.size()) go();
     }
     sort(v.begin(), v.end(), cmp);
     for (string i: v) cout << i << '\n';
-    
+
     return 0;
 }
