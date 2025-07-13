@@ -19,7 +19,7 @@ int main() {
 
         while (l < r) {
             if (v[l] + v[r] > M) r--;
-            else if (v[l] + v[r] == M) ret++, r--;
+            else if (v[l] + v[r] == M) ret++, l++;
             else l++;
         }
         cout << ret << '\n';
