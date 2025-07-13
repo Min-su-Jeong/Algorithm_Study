@@ -1,21 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int N, M, ret, a[15004];
+int N, M, ret;
 
 int main() {
-    ios_base::sync_with_stdio(false); cin.tie(NULL);
-    cin >> N >> M;
-    for (int i=0; i<N; i++) cin >> a[i];
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
 
-    if (M > 200000) cout << 0 << "\n";
+    cin >> N >> M;
+    vector<int> v(N);
+    for (int i=0; i<N; i++) cin >> v[i];
+
+    if (M > 200000) cout << 0 << '\n';
     else {
-        for (int i=0; i<N; i++) {
-            for (int j=i+1; j<N; j++) {
-                if (a[i] + a[j] == M) ret++;
-            }
+        int l = 0;
+        int r = v.size()-1;
+        sort(v.begin(), v.end());
+
+        while (l < r) {
+            if (v[l] + v[r] < M) l++;
+            else if (v[l] + v[r] == M) ret++, r--;
+            else r--;
         }
-        cout << ret << "\n";
+        cout << ret << '\n';
     }
     return 0;
 }
