@@ -1,40 +1,36 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int a[200], flag;
-char mid;
+int a[27], flag;
 string s, ret;
-map<char, int> mp;
+char mid;
 
 int main() {
-    ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
 
     cin >> s;
-    for (char c: s) a[c]++;
+    for (char c: s) a[c-'A']++;
 
-    for (int i='Z'; i>='A'; i--) {
-        // 알파벳이 존재할 때
+    for (int i=26; i>=0; i--) {
         if (a[i]) {
-            // 알파벳이 홀수일 때
             if (a[i] & 1) {
-                mid = char(i);
-                flag++;
+                mid = char(i + 'A');
                 a[i]--;
+                flag++;
             }
-            // 홀수 개의 알파벳이 2개인 경우 -> 펠린드롬 만들기 불가
+
             if (flag == 2) break;
 
-            // 나머지는 양쪽으로 문자 붙여주기
             for (int j=0; j<a[i]; j+=2) {
-                ret = char(i) + ret + char(i);
+                ret = char(i+'A') + ret + char(i+'A');
             }
         }
     }
-    // mid가 있는 경우, 남은 문자 삽입
-    if (mid) ret.insert(ret.begin() + ret.size() / 2, mid);
+    if (mid) ret.insert(ret.begin() + ret.size()/2, mid);
 
-    if (flag != 2) cout << ret << '\n';
-    else cout << "I'm Sorry Hansoo" << '\n';
-    
+    if (flag == 2) cout << "I'm Sorry Hansoo";
+    else cout << ret << '\n';
+
     return 0;
 }
