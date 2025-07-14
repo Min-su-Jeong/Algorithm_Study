@@ -2,7 +2,7 @@
 using namespace std;
 
 const int MAX = 5;
-int N, M, sum, ret, a[MAX][MAX];
+int N, M, ret, a[MAX][MAX];
 
 int main() {
     scanf("%d %d", &N, &M);
@@ -12,10 +12,8 @@ int main() {
         }
     }
 
-    for (int s=0; s < (1 << (N*M)); s++) {
+    for (int s=0; s<(1 << M*N); s++) {
         int sum = 0;
-
-        // 가로
         for (int i=0; i<N; i++) {
             int cur = 0;
             for (int j=0; j<M; j++) {
@@ -29,8 +27,7 @@ int main() {
             }
             sum += cur;
         }
-
-        // 세로
+        
         for (int j=0; j<M; j++) {
             int cur = 0;
             for (int i=0; i<N; i++) {
