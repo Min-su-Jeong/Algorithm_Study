@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int INF = INT_MAX;
+const int INF = 987654321;
 int N, mp, mf, ms, mv, p, f, s, v, sum, ret=INF;
 struct A {
     int mp, mf, ms, mv, cost;
@@ -11,16 +11,15 @@ map<int, vector<vector<int>>> ret_v;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL); cout.tie(NULL);
-    
-    cin >> N;
-    cin >> mp >> mf >> ms >> mv;
+
+    cin >> N >> mp >> mf >> ms >> mv;
     for (int i=0; i<N; i++) {
         cin >> a[i].mp >> a[i].mf >> a[i].ms >> a[i].mv >> a[i].cost;
     }
 
-    for (int i=0; i<(1 << N); i++) {
-        p = f = s = v = sum = 0;
+    for (int i=0; i<(1<<N); i++) {
         vector<int> vec;
+        p = f = s = v = sum = 0;
         for (int j=0; j<N; j++) {
             if (i & (1 << j)) {
                 vec.push_back(j+1);
