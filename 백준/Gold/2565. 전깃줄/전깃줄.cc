@@ -13,14 +13,12 @@ int main() {
         cin >> v[i].first >> v[i].second;
     }
     sort(v.begin(), v.end());
-
+    
     for (int i=0; i<N; i++) {
         auto lowerPos = lower_bound(lis, lis+len, v[i].second);
-        int pos = lowerPos - lis;
         if (*lowerPos == 0) len++;
         *lowerPos = v[i].second;
     }
     cout << N - len << '\n';
-    
     return 0;
 }
