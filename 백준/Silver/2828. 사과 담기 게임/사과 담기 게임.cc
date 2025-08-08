@@ -15,16 +15,15 @@ int main() {
 
         cin >> pos;
         if (l <= pos && pos <= r) continue;
-        else {
-            if (pos < l) {
-                ret += (l - pos);
-                l = pos;
-            } else {
-                ret += (pos - r);
-                l += pos - r;
-            }
+        else if (pos < l) {
+            ret += l - pos;
+            l = pos;
+        } else if (pos > r) {
+            ret += pos - r;
+            l += pos - r;
         }
     }
     cout << ret << '\n';
+
     return 0;
 }
