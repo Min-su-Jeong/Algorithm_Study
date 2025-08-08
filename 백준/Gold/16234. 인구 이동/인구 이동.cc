@@ -2,8 +2,8 @@
 using namespace std;
 
 const int MAX = 54;
-const int dx[4] = {0, -1, 0, 1};
-const int dy[4] = {1, 0, -1, 0};
+const int dx[4] = {-1, 0, 1, 0};
+const int dy[4] = {0, -1, 0, 1};
 int N, L, R, sum, ret, a[MAX][MAX];
 bool visited[MAX][MAX];
 vector<pair<int, int>> v;
@@ -15,8 +15,8 @@ void dfs(int y, int x) {
         if (ny < 0 || ny >= N || nx < 0 || nx >= N || visited[ny][nx]) continue;
         int gap = abs(a[ny][nx] - a[y][x]);
         if (L <= gap && gap <= R) {
-            visited[ny][nx] = 1;
             sum += a[ny][nx];
+            visited[ny][nx] = 1;
             v.push_back({ny, nx});
             dfs(ny, nx);
         }
@@ -48,7 +48,7 @@ int main() {
                 dfs(i, j);
 
                 if (v.size() == 1) continue;
-                
+
                 int area = sum / v.size();
                 for (auto it: v) a[it.first][it.second] = area;
                 flag = 1;
