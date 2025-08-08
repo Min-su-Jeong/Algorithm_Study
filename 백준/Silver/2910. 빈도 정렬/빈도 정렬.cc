@@ -1,32 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAX = 1004;
-int N, C, a[MAX];
+int N, C, a[1004];
 map<int, int> mp, mp_first;
 vector<pair<int, int>> v;
 
 bool cmp(pair<int, int> a, pair<int, int> b) {
-    if (a.first == b.first) {
-        return mp_first[a.second] < mp_first[b.second];
-    }
-    return a.first > b.first;
+    if (a.second == b.second) return mp_first[a.first] < mp_first[b.first];
+    return a.second > b.second;
 }
 
 int main() {
-    ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-
-    cin >> N >> C;
+    scanf("%d %d", &N, &C);
     for (int i=0; i<N; i++) {
-        cin >> a[i]; mp[a[i]]++;
+        scanf("%d", a+i);
+        mp[a[i]]++;
         if (mp_first[a[i]] == 0) mp_first[a[i]] = i+1;
     }
 
-    for (auto it: mp) v.push_back({it.second, it.first});
+    for (auto it: mp) v.push_back({it.first, it.second});
     sort(v.begin(), v.end(), cmp);
 
     for (auto it: v) {
-        while(it.first--) cout << it.second << ' ';
+        for (int i=0; i<it.second; i++) {
+            cout << it.first << ' ';
+        }
     }
     return 0;
 }
