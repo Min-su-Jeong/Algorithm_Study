@@ -5,12 +5,11 @@
 """
 
 def solution(t, p):
-    tLen, pLen = len(t), len(p)
-    subList = [t[i:i+pLen] for i in range(tLen - pLen + 1)]
-    
     ret = 0
-    for sub in subList:
-        if sub <= p:
+    tLen, pLen = len(t), len(p)
+
+    for i in range(tLen-pLen+1):
+        if t[i:i+pLen] <= p:
             ret += 1
 
     return ret
