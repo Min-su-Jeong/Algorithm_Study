@@ -1,15 +1,15 @@
+from collections import Counter
+
 def solution(X, Y):
-    answer = []
-    
-    for i in (set(X) & set(Y)):
-        for j in range(min(X.count(i), Y.count(i))):
-            answer.append(i)
-    
-    answer.sort(reverse=True)
-    
-    if not len(answer):
+    ret = ''
+    for i in range(9, -1, -1):
+        ret += str(i) * min(Counter(X)[str(i)], Counter(Y)[str(i)])
+        
+    if ret == '':
         return "-1"
-    elif answer[0] == "0":
+    elif ret[0] == '0':
         return "0"
     
-    return ''.join(answer)
+    return ret
+
+    
