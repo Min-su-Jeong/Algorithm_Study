@@ -1,18 +1,9 @@
 """
 1. babbling 요소 하나씩 꺼내기
-2. 문자열에 네 가지 발음 중에 포함되는지 여부 확인
-  - 존재하면: flag 값 업데이트(중복 여부 판단), 인덱스 해당 길이만큼 더해서 스킵
-  - 존재하지 않으면: 발음 불가 -> flag 값으로 판단하기
-"""
-def solution(babbling):
-    ret = 0
-    
-    for b in babbling:
-        """
-1. babbling 요소 하나씩 꺼내기
-2. 문자열에 네 가지 발음 중에 포함되는지 여부 확인
-  - 존재하면: flag 값 업데이트(중복 여부 판단), 인덱스 해당 길이만큼 더해서 스킵
-  - 존재하지 않으면: 발음 불가 -> flag 값으로 판단하기
+2. 문자열에 네 가지 발음 검사
+  - 중복인 경우: continue
+  - 중복이 아닌 경우: 발음에 해당 하는 글자 공백처리(' ')
+- 공백처리 하는 이유: yayae의 경우 - aya 처리 후 ye가 합쳐지게 되어 발음 가능으로 판단 가능  
 """
 def solution(babbling):
     ret = 0
@@ -23,10 +14,9 @@ def solution(babbling):
             if s * 2 in b:
                 continue
             
-            b = b.replace(s, " ")
+            b = b.replace(s, ' ')
             
         if len(b.strip()) == 0:
             ret += 1
-            
+    
     return ret
-                
