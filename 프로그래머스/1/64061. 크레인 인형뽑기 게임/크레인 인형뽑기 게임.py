@@ -19,6 +19,3 @@ def solution(board, moves):
             stk.pop()
         
     return ret
-        
-        
-            
