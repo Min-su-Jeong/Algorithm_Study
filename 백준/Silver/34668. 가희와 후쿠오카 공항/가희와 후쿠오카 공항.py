@@ -14,33 +14,33 @@
 풀이 전략
 - 우선, 시간 처리: int로 계산 후 마지막에 string 처리
 - 첫번째 국내선 출발 시간: 06:06, 다음 출발마다 12분 증가
-- M의 개수에서 50명씩 나눈 몫
-  - 나머지 O: +1
-  - 나머지 X: 0
-  -> 가희가 기다려야하는 횟수
+- M에서 50명씩 나눈 몫 = 가희가 기다려야하는 횟수
+- 기다려야 하는 횟수 * 12 = 결과 값
 """
 
-# Input
-Q = int(input())
-M = [int(input()) for _ in range(Q)]
+import sys
+input = lambda: sys.stdin.readline().rstrip()
 
-# Function
 def timeToInt(t: str):
     h, m = map(int, t.split(':'))
     return h * 60 + m
 
 def intToTime(i: int):
-    h = "00" + str(i // 60)
-    m = "00" + str(i % 60)
+    h = i // 60
+    m = i % 60
 
-    return h[-2:] + ":" + m[-2:]
+    return f"{h:02d}:{m:02d}"
 
-# Logic
-for m in M:
-    start = timeToInt("06:06")
-    cnt = m // 50
-    start += cnt * 12
+Q = int(input())
+for _ in range(Q):
+    M = int(input())
 
-    ret = intToTime(start)
+    base_time = timeToInt("06:06")
+    
+    k = M // 50
+    departure = base_time + k * 12
 
-    print(ret)
+    if departure >= 24 * 60:
+        print(-1)
+    else:
+        print(intToTime(departure))
