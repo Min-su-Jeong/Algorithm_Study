@@ -1,17 +1,20 @@
-from collections import Counter
 t = int(input())
 
-for i in range(t):
+for _ in range(t):
+    ret = 1
+    clothes = {}
+
     n = int(input())
-    wear = []
-    for j in range(n):
-        a, b = input().split()
-        wear.append(b)
+    for _ in range(n):
+        _, c = input().split()
+        if not c in clothes:
+            clothes[c] = 1
+        else:
+            clothes[c] += 1
 
-    wear_Counter = Counter(wear)
-    cnt = 1
+    for c in clothes.values():
+        ret *= (c+1)
+        
+    ret -= 1
 
-    for key in wear_Counter:
-        cnt *= wear_Counter[key] + 1
-
-    print(cnt-1)
+    print(ret)
