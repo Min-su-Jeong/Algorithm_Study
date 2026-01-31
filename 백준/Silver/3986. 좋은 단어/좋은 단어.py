@@ -6,11 +6,8 @@ for _ in range(N):
     stk = []
 
     for ch in s:
-        if stk and stk[-1] == ch:
-            stk.pop()
-            continue
-        
-        stk.append(ch)
+        if stk and stk[-1] == ch: stk.pop()
+        else: stk.append(ch)
     
     if not stk: ret += 1
     
