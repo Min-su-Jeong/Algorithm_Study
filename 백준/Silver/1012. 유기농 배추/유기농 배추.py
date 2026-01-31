@@ -1,42 +1,41 @@
-import sys
-from collections import deque 
 
-dx = [-1,1,0,0]
-dy = [0,0,-1,1]
-input = sys.stdin.readline
+import sys; input = lambda: sys.stdin.readline().rstrip()
+sys.setrecursionlimit(10**7)
 
-# BFS 이용
-def bfs(i, j, visited):
-    cnt = 0
-    q = deque()
-    q.append((i, j))
-    visited[i][j] = True
-    cnt += 1
-    while q:
-        x, y = q.popleft()
-        for i in range(4):
-            nx = x+dx[i]
-            ny = y+dy[i]
-            if nx < 0 or nx >= n or ny < 0 or ny >= m:
-                continue
-            if arr[nx][ny] == 1 and visited[nx][ny] == False:
-                visited[nx][ny] = True
-                q.append((nx,ny))
+T = int(input())
 
-    return cnt
+dy = [-1, 0, 1, 0]
+dx = [0, -1, 0, 1]
 
-for _ in range(int(input())):
-    m, n, k = list(map(int, input().split()))
-    arr = [[[0] for _ in range(m)] for _ in range(n)]
-    visited = [[False]*m for _ in range(n)]
-    
-    for _ in range(k):
+def dfs(y, x):
+    visited[y][x] = True
+    for i in range(4):
+        ny = y + dy[i]
+        nx = x + dx[i]
+        if ny < 0 or nx < 0 or ny >= N or nx >= M: continue
+        if graph[ny][nx] == 0 or visited[ny][nx]: continue
+
+        dfs(ny, nx)
+            
+while T:
+    M, N, K = map(int, input().split())
+
+    ret = 0
+    visited = [[0] * M for _ in range(N)]
+    graph = [[0] * M for _ in range(N)]
+
+    for i in range(K):
         x, y = map(int, input().split())
-        arr[y][x] = 1
+        graph[y][x] = 1
 
-    sol = 0
-    for i in range(n):
-        for j in range(m):
-            if arr[i][j] == 1 and visited[i][j] == False:
-                  sol += bfs(i, j, visited)      
-    print(sol)
+    for i in range(N):
+        for j in range(M):
+            if graph[i][j] == 0 or visited[i][j]:
+                continue
+            
+            dfs(i, j)
+            ret += 1
+
+    print(ret)
+    
+    T -= 1
