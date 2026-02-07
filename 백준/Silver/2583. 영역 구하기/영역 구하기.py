@@ -1,38 +1,42 @@
-from collections import deque
+import sys
+input = lambda: sys.stdin.readline().rstrip()
+sys.setrecursionlimit(10 ** 6)
 
-def bfs(x, y):
-    q = deque()
-    q.append((x, y))
-    graph[x][y] = 1
-    size = 1
-    while q:
-        x, y = q.popleft()
-        for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-            if 0 <= nx < m and 0 <= ny < n and graph[nx][ny] == 0:
-                graph[nx][ny] = 1
-                q.append((nx, ny))
-                size += 1
-    result.append(size)
-            
-m, n, k = map(int, input().split())
-graph = [[0] * n for _ in range(m)]
-for _ in range(k):
+M, N, K =map(int, input().split())
+graph = [[0] * N for _ in range(M)]
+visited = [[0] * N for _ in range(M)]
+
+ret = []
+dy = [-1, 0, 1, 0]
+dx = [0, -1, 0, 1]
+
+def dfs(y, x):
+    cnt = 1
+    graph[y][x] = 1
+
+    for i in range(4):
+        ny = y + dy[i]
+        nx = x + dx[i]
+        if ny < 0 or nx < 0 or ny >= M or nx >= N: continue
+        if graph[ny][nx] == 1: continue
+        graph[ny][nx] = 1
+        cnt += dfs(ny, nx)
+    
+    return cnt
+
+for _ in range(K):
     x1, y1, x2, y2 = map(int, input().split())
+
     for i in range(y1, y2):
         for j in range(x1, x2):
             graph[i][j] = 1
 
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
-
-result = []
-for i in range(m):
-    for j in range(n):
+for i in range(M):
+    for j in range(N):
         if graph[i][j] == 0:
-            bfs(i, j)
+            ret.append(dfs(i, j))
 
-result.sort()
-print(len(result))
-print(*result)
+ret.sort()
+
+print(len(ret))
+print(*ret)
