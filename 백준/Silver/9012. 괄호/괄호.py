@@ -1,10 +1,9 @@
 def check(s: str):
     stk = []
     for c in s:
-        if c == '(': stk.append(c)
-        else:
-            if stk: stk.pop()
-            else: return False
+        if stk and stk[-1] == '(' and c == ')':
+            stk.pop()
+        else: stk.append(c)
     
     return len(stk) == 0
 
