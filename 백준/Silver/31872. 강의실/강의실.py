@@ -10,7 +10,6 @@ for i in range(1, N):
     dist.append(room[i] - room[i - 1])
 
 dist.sort(reverse=True)
-skip = sum(dist[:K])
+ret = sum(dist[K:])
 
-ret = room[-1] - skip
 print(ret)
