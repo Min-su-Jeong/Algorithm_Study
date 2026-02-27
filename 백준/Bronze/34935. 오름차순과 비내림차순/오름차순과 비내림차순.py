@@ -1,14 +1,17 @@
+import sys
+input = lambda: sys.stdin.readline().rstrip()
+
 N = int(input())
-arr = list(map(int, input().split()))
+it = map(int, input().split())
 
 flag = True
-num = arr[0]
-for i in range(1, N):
-    if num >= arr[i]:
+prev = next(it)
+for i in it:
+    if prev >= i:
         flag = False
         break
     
-    num = arr[i]
-    
+    prev = i
+
 if flag: print(1)
 else: print(0)
