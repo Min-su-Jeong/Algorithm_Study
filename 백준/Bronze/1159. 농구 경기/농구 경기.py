@@ -1,22 +1,16 @@
-import sys
-input = lambda: sys.stdin.readline().rstrip()
-
 N = int(input())
 
-ret = []
-alpha = [0] * 26
-
+player = {}
 for _ in range(N):
-    s = input()
-    alpha[ord(s[0]) - ord('a')] += 1
+    s = input()[0]
+    player[s] = player.get(s, 0) + 1
 
-for i in range(len(alpha)):
-    if alpha[i] < 5:
-        continue
-
-    ret.append(chr(i+ord('a')))
+ret = ''
+for k, v in sorted(player.items()):
+    if v >= 5:
+        ret += k
 
 if ret:
-    print(''.join(ret))
+    print(ret)
 else:
     print("PREDAJA")
