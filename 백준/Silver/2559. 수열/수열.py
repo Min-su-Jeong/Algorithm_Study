@@ -8,6 +8,6 @@ for i in range(1, N+1):
     psum[i] += psum[i-1] + arr[i]
 
 for i in range(K, N+1):
-    ret = max(ret, psum[i] -  psum[i-K])
+    ret = max(ret, psum[i] - psum[i-K])
 
 print(ret)
