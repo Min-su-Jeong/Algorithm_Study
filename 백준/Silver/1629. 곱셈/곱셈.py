@@ -1,14 +1,16 @@
-def modular(a, b, c):
-    if b == 1:
-        return a % c
+def modular(A, B, C):
+    if B == 1:
+        return A % C
+    
+    ret = modular(A, B // 2, C)
+    ret = (ret * ret) % C
 
-    ret = modular(a, b // 2, c)
-    ret = (ret * ret) % c
-
-    if b % 2 == 1:
-        ret = (ret * a) % c
-
+    if (B % 2 == 1):
+        ret = (ret * A) % C
+    
     return ret
 
-a, b, c = map(int, input().split())
-print(modular(a, b, c))
+if __name__ == "__main__":
+    A, B, C = map(int, input().split())
+
+    print(modular(A, B, C))
