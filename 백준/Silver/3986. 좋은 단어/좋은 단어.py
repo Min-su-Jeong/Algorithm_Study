@@ -1,14 +1,24 @@
 N = int(input())
 
-ret = 0
-for _ in range(N):
-    s = input()
+def check(words):
     stk = []
 
-    for ch in s:
-        if stk and stk[-1] == ch: stk.pop()
-        else: stk.append(ch)
-    
-    if not stk: ret += 1
-    
+    for w in words:
+        if stk and stk[-1] == w:
+            stk.pop()
+        else:
+            stk.append(w)
+
+    if stk:
+        return False
+    else:
+        return True
+
+ret = 0   
+for _ in range(N):
+    words = input()
+
+    if check(words):
+        ret += 1
+
 print(ret)
