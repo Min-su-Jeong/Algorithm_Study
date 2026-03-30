@@ -1,20 +1,16 @@
-t = int(input())
+T = int(input())
 
-for _ in range(t):
-    ret = 1
-    clothes = {}
-
+while T:
+    mp = {}
     n = int(input())
     for _ in range(n):
-        _, c = input().split()
-        if not c in clothes:
-            clothes[c] = 1
-        else:
-            clothes[c] += 1
+        _, acc = input().split()
+        mp[acc] = mp.get(acc, 0) + 1
 
-    for c in clothes.values():
+    ret = 1
+    for c in mp.values():
         ret *= (c+1)
-        
-    ret -= 1
+    
+    print(ret-1)
 
-    print(ret)
+    T -= 1
