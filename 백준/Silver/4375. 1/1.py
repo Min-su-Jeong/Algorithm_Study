@@ -4,7 +4,7 @@ while True:
     except:
         break
 
-    cnt, ret = 1, 1
+    ret, cnt = 1, 1
     while True:
         if cnt % n == 0:
             print(ret)
