@@ -1,11 +1,13 @@
-import sys; input = lambda: sys.stdin.readline().rstrip()
+import sys
 from collections import deque
+
+input = lambda: sys.stdin.readline().rstrip()
+
+dy = [-1, 0, 1, 0]
+dx = [0, 1, 0, -1]
 
 N, M = map(int, input().split())
 graph = [list(map(int, input())) for _ in range(N)]
-
-dy = [-1, 0, 1, 0]
-dx = [0, -1, 0, 1]
 
 def bfs(y, x):
     q = deque()
