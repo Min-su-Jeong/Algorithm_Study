@@ -1,17 +1,16 @@
-def check(s: str):
+N = int(input())
+
+for _ in range(N):
     stk = []
-    for c in s:
-        if stk and stk[-1] == '(' and c == ')':
+    string = input()
+
+    for s in string:
+        if stk and stk[-1] == "(" and s == ")":
             stk.pop()
-        else: stk.append(c)
-    
-    return len(stk) == 0
+        else:
+            stk.append(s)
 
-if __name__ == "__main__":
-    N = int(input())
-
-    for _ in range(N):
-        s = input()
-
-        if check(s): print("YES")
-        else: print("NO")
+    if stk:
+        print("NO")
+    else:
+        print("YES")
