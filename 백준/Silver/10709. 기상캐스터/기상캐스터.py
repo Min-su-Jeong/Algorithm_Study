@@ -1,22 +1,23 @@
-H, W = map(int, input().split())
-graph = [list(map(str, input())) for _ in range(H)]
-sky = [[-1] * W for _ in range(H)]
+import sys
+input = lambda: sys.stdin.readline().rstrip()
 
-for i in range(H):
-    for j in range(W):
-        if graph[i][j] == 'c':
-            sky[i][j] = 0
+N, M = map(int, input().split())
+graph = [[-1] * M for _ in range(N)]
 
-for i in range(H):
-    for j in range(W):
-        if sky[i][j] != 0:
+for i in range(N):
+    for j, c in enumerate(list(map(str, input()))):
+        if c == "c": graph[i][j] = 0
+
+for i in range(N):
+    for j in range(M):
+        if graph[i][j] != 0:
             continue
 
-        while j+1 < W and sky[i][j+1] == -1:
-            sky[i][j+1] = sky[i][j] + 1
+        while j+1 < M and graph[i][j+1] != 0:
+            graph[i][j+1] = graph[i][j] + 1
             j += 1
-
-for i in range(H):
-    for j in range(W):
-        print(sky[i][j], end=' ')
+        
+for i in range(N):
+    for j in range(M):
+        print(graph[i][j], end=' ')
     print()
