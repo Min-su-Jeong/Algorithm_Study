@@ -1,46 +1,40 @@
 import sys
-from collections import deque
+sys.setrecursionlimit(10**6)
+input = lambda: sys.stdin.readline().rstrip()
 
-def bfs(x, y, val):
-    safe[x][y] = 1
-    q = deque()
-    q.append((x, y))
-    while q:
-        x, y = q.popleft()
-        for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-            if 0 <= nx < n and 0 <= ny < n:
-                # 안전한 영역만 1로 변경
-                if not safe[nx][ny] and graph[nx][ny] > val:
-                    safe[nx][ny] = 1
-                    q.append((nx, ny))
-                    
-input = sys.stdin.readline
-n = int(input())
-max_num = 0 # 최대 높이
-graph = []
-for i in range(n):
-    graph.append(list(map(int, input().split())))
-    for j in range(n):
-        if graph[i][j] > max_num:
-            max_num = graph[i][j]
+N = int(input())
+graph = [list(map(int, input().split())) for _ in range(N)]
 
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
+ret = 1
+dy = [-1, 0, 1, 0]
+dx = [0, 1, 0, -1]
 
+def dfs(y, x):
+    visited[y][x] = True
 
+    for i in range(4):
+        ny = y + dy[i]
+        nx = x + dx[i]
+        if ny < 0 or ny >= N or nx < 0 or nx >= N: continue
+        if visited[ny][nx]: continue
+        dfs(ny, nx)
 
-result = 0
-for val in range(max_num):
-    cnt = 0
-    safe = [[0] * n for _ in range(n)]
-    for i in range(n):
-        for j in range(n):
-            # 안전한 영역의 개수 찾기
-            if not safe[i][j] and graph[i][j] > val:
-                cnt += 1
-                bfs(i, j, val)
-    result = max(cnt, result)
-    
-print(result)
+    return 1
+
+if __name__ == "__main__":
+    for h in range(1, 101):
+        visited = [[False] * N for _ in range(N)]
+        for i in range(N):
+            for j in range(N):
+                if graph[i][j] <= h:
+                    visited[i][j] = True
+
+        cnt = 0
+        for i in range(N):
+            for j in range(N):
+                if visited[i][j]: continue
+                cnt += dfs(i, j)
+
+        ret = max(ret, cnt)
+
+print(ret)
